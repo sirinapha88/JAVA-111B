@@ -1,0 +1,59 @@
+import java.util.Scanner;
+
+public class GuessingNumber {
+
+    public static void main(String[] args) {
+
+        do {
+            playOneGame();   //get the result from playOneGame class.
+        } while (shouldPlayAgain());   // get answer for the user.
+    }
+
+    // playOneGame class start it from here.
+    public static void playOneGame() {
+
+        //This is for get to mid point.
+        int min = 1;
+        int max = 100;
+        int compGuess = (max + min) / 2;
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.println("Welcome to guessing game number!!");
+        System.out.println("Guess a number between " + min + " and " + max);
+        String input;
+        
+        //this loop for compare the value and the guessing number.
+        do {
+            System.out.print("Is it " + compGuess + "? (h, l, c): ");
+            input = keyboard.nextLine();
+
+            if (input.equals("c")) {
+                System.out.println("Great!");
+            } else if (input.equals("h")) {
+                min = compGuess + 1;
+                compGuess = (max + min) / 2;
+            } else if (input.equals("l")) {
+                max = compGuess - 1;
+                compGuess = (max + min) / 2;
+            }
+        } while (input.equals("h") || input.equals("l"));
+    }
+
+    //shouldPlayAgain started from here for asked the user want to play another game or not?
+    
+    public static boolean shouldPlayAgain()
+    {
+        Scanner another = new Scanner(System.in);
+        char anotherGame;
+        boolean shouldPlayAgain;
+        System.out.println("Do you want to play again? (y/n)");
+        anotherGame = another.next().charAt(0);
+
+        if (anotherGame == 'y')
+            shouldPlayAgain = true;
+        else
+            shouldPlayAgain = false;
+        return shouldPlayAgain;
+    }
+}
+
