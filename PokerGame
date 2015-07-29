@@ -1,0 +1,127 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class PokerGame {
+
+    public static void main(String[] args) {
+        do {
+            playOneGame();   //get the result from playOneGame class.
+        } while (shouldPlayAgain());   // get answer for the user.
+    }
+// get the cards number from the user and stored in the arrays.
+        public static void playOneGame() {
+            int[] hand = new int[5];
+            Scanner keyboard = new Scanner(System.in);
+
+            System.out.println("Enter five numeric cards, no face cards. Use 2-9.");
+            System.out.print("Card 1: ");
+            hand[0] = keyboard.nextInt();
+            System.out.print("Card 2: ");
+            hand[1] = keyboard.nextInt();
+            System.out.print("Card 3: ");
+            hand[2] = keyboard.nextInt();
+            System.out.print("Card 4: ");
+            hand[3] = keyboard.nextInt();
+            System.out.print("Card 5: ");
+            hand[4] = keyboard.nextInt();
+// get the result of the cards by uses the if..else if condition.
+            if (containsFourOfaKind(hand)) {
+                System.out.println("Four of a kind");
+            }else if (containsStraight(hand)) {
+                System.out.println("Straight");
+            } else if (containsFullHouse(hand)) {
+                System.out.println("Full House");
+            } else if (containsThreeOfaKind(hand)) {
+                System.out.println("Three of a kind");
+            } else if (containsTwoPair(hand)) {
+                System.out.println("Two Pair");
+            } else if (containsAPair(hand)) {
+                System.out.println("Pair");
+            } else
+                System.out.println("High Card");
+        }
+        // created boolean containsStraight method to generated Straight card
+
+    public static boolean containsStraight(int hand[]) {
+        boolean st = true;
+        for (int i = 0; i < 5; i++)
+            Arrays.sort(hand);
+        for (int i = 0; st && i < 4; i++)
+            if (hand[i + 1] - hand[i] != 1) st = false;
+        return st;
+    }
+    // created boolean containsFourOfaKind method to generated four matching cards
+    public static boolean containsFourOfaKind(int hand[]) {
+        int count = 0;
+        for (int i = 0; count != 3 && i < hand.length; i++) {
+            count = 0;
+            for (int j = 0; j < hand.length; j++)
+                if (hand[i] == hand[j] && i != j) count++;
+        }
+        return (count == 3);
+    }
+
+    // created boolean containsThreeOfaKind method to generated three matching cards
+    public static boolean containsThreeOfaKind(int hand[]) {
+        int count = 0;
+        for (int i = 0; count != 2 && i < hand.length; i++) {
+            count = 0;
+            for (int j = 0; j < hand.length; j++)
+                if (hand[i] == hand[j] && i != j) count++;
+        }
+        return (count == 2);
+    }
+    // created boolean containsTwoPair method to generated two different pairs card
+    public static boolean containsTwoPair(int hand[]) {
+        int count = 0, value = 0, result;
+        for (int i = 0; i < hand.length - 1; i++) {
+            if (hand[i] == hand[i + 1]) {
+                count++;
+                value = hand[i];
+            }
+        }
+        if (count== 2 + value) {
+
+        }
+        return count==2;
+    }
+    // created boolean containsAPair method to generated one pair card.
+    public static boolean containsAPair(int hand[]) {
+        int count = 0;
+        for (int i = 0; count != 1 && i < hand.length; i++) {
+            count = 0;
+            for (int j = 0; j < hand.length; j++)
+                if (hand[i] == hand[j] && i != j) count++;
+        }
+        return (count == 1);
+    }
+    // created boolean containsFullHouse method to generated one pair and a three of a kind cards
+    public static boolean containsFullHouse(int hand[]) {
+        return (containsThreeOfaKind(hand) && containsAPair(hand));
+    }
+    // This method to ask the uer want to play another game or not.
+    public static boolean shouldPlayAgain()
+    {
+        Scanner another = new Scanner(System.in);
+        char anotherGame;
+        boolean shouldPlayAgain;
+        System.out.println("Do you want to play again? (y/n)");
+        anotherGame = another.next().charAt(0);
+
+        if (anotherGame == 'y')
+            shouldPlayAgain = true;
+        else
+            shouldPlayAgain = false;
+        return shouldPlayAgain;
+    }
+}
+
+
+
+
+
+
+
+
+
+
