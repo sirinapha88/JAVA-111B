@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class HighScore {
+
+    public static void main(String[] args) {
+
+        ArrayList<Integer> scoreList = new ArrayList<Integer>();   //created scoreList in ArrayList
+        ArrayList<String> nameList = new ArrayList<String>();   //created nameList in ArrayList
+
+        InitializeArrays(nameList, scoreList);   // call method InitializerArrays
+        sort(scoreList,nameList);   // call method sort
+        display(nameList, scoreList);   //call method display
+    }
+// This method for get user input name and number by using for loop to keep all the value in ArrayList.
+    public static void InitializeArrays(ArrayList names, ArrayList scores) {
+        int n = 5;
+        Scanner input = new Scanner(System.in);
+        for (int i = 0; i < n; i++)
+        {
+            System.out.print("Please enter your name #" + (i + 1) + ": ");
+            names.add(input.next());
+            System.out.print("Please enter your number #" + (i + 1) + ": ");
+            scores.add(input.nextInt());
+        }
+    }
+    /** The method for sorting the numbers */
+    public static void sort(ArrayList<Integer> scores,ArrayList<String>names) {
+
+        for (int i = scores.size() - 1; i >= 0; i--)   //for the number of items in the list
+        {
+            for (int j = 0; j < i; j++)
+            {
+                if (scores.get(j) < scores.get(j + 1)) //if item is less than the next time
+                {
+                    int tempScore = scores.get(j);   //int temp; for holding variable
+                    String tempName = names.get(j);
+                    scores.set(j, scores.get(j + 1));
+                    names.set(j, names.get(j + 1));
+                    scores.set(j + 1, tempScore);
+                    names.set(j + 1, tempName);
+                }
+            }
+        }
+
+    }
+    // This method for print the top scores by using for loop to print the name and score.
+    public static void display(ArrayList names, ArrayList scores) {
+        System.out.println("Top Scorers");
+        for (int i = 0; i < scores.size(); i++)
+        {
+            System.out.println(names.get(i) + ": " + scores.get(i));
+        }
+    }
+}
